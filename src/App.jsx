@@ -5,12 +5,16 @@ function App() {
   const [squares, setSquares] = useState(Array(9).fill(null))
   const [isXNext, setIsXNext] = useState(true)
 
-  // Calcula o vencedor
   const calculateWinner = (squares) => {
     const lines = [
-      [0, 1, 2], [3, 4, 5], [6, 7, 8], // horizontais
-      [0, 3, 6], [1, 4, 7], [2, 5, 8], // verticais
-      [0, 4, 8], [2, 4, 6] // diagonais
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
     ]
 
     for (let i = 0; i < lines.length; i++) {
@@ -22,17 +26,16 @@ function App() {
     return null
   }
 
-  // Manipula o clique em cada quadrado
   const handleClick = (i) => {
-    if (calculateWinner(squares) || squares[i]) return
-
+    if (calculateWinner(squares) || squares[i]) {
+      return
+    }
     const newSquares = squares.slice()
     newSquares[i] = isXNext ? 'X' : 'O'
     setSquares(newSquares)
     setIsXNext(!isXNext)
   }
 
-  // Add reset function
   const handleReset = () => {
     setSquares(Array(9).fill(null))
     setIsXNext(true)
@@ -46,8 +49,11 @@ function App() {
     : `Next player: ${isXNext ? 'X' : 'O'}`
 
   return (
-    <div className="game">
-      <div className="status">{status}</div>
+    <div className="app">
+      <h1 style={{ color: 'white' }}>Tic Tac Toe</h1>
+      <div className="status" style={{ color: 'white', marginBottom: '20px' }}>
+        {status}
+      </div>
       <div className="board">
         {squares.map((square, i) => (
           <button key={i} className="square" onClick={() => handleClick(i)}>
